@@ -50,7 +50,7 @@ This workflow automates:
 ✅ Docker build & push
 ✅ Terraform apply
 
-## CI/CD Setup
+### CI/CD Setup
 
 Store AWS & Docker credentials in GitHub Secrets:
 AWS_ACCESS_KEY_ID
@@ -58,7 +58,7 @@ AWS_SECRET_ACCESS_KEY
 DOCKER_USERNAME
 DOCKER_PASSWORD
 
-## Trigger Deployment
+### Trigger Deployment
 Push changes to main to trigger the workflow:
 
 ```sh
