@@ -47,10 +47,13 @@ jobs:
 
             echo "🚀 Setting up Terraform Remote State Backend..."
 
-            # Step 1: Create S3 Bucket for Terraform State Storage
-            echo "📌 Creating S3 bucket: $S3_BUCKET_NAME..."
+            if [ "$AWS_REGION" == "us-east-1" ]; then
+            echo "📌 Creating S3 bucket in us-east-1: $S3_BUCKET_NAME..."
+            aws s3api create-bucket --bucket "$S3_BUCKET_NAME" --region "$AWS_REGION" || echo "Bucket may already exist."
+            else
+            echo "📌 Creating S3 bucket in $AWS_REGION: $S3_BUCKET_NAME..."
             aws s3api create-bucket --bucket "$S3_BUCKET_NAME" --region "$AWS_REGION" --create-bucket-configuration LocationConstraint="$AWS_REGION" || echo "Bucket may already exist."
-
+            fi
             # Step 2: Enable Versioning on the S3 Bucket
             echo "🔄 Enabling versioning on $S3_BUCKET_NAME..."
             aws s3api put-bucket-versioning --bucket "$S3_BUCKET_NAME" --versioning-configuration Status=Enabled
