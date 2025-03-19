@@ -23,22 +23,22 @@ jobs:
         docker build -t nishantg98/simple-time-service -f app/Dockerfile app
         docker tag nishantg98/simple-time-service nishantg98/simple-time-service:latest
         docker push nishantg98/simple-time-service:latest
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
     
   setup-terraform-backend:
     runs-on: ubuntu-latest
     outputs:
       backend_exists: ${{ steps.check-backend.outputs.exists }}
     steps:
-      - name: Check if Terraform Backend Already Exists
-        id: check-backend
-        run: |
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Check if Terraform Backend Already Exists
+      id: check-backend
+      run: |
             echo "Checking if S3 bucket exists..."
             if aws s3api head-bucket --bucket simple-time-service-tf-state 2>/dev/null; then
               echo "✅ S3 bucket exists. Skipping backend setup."
@@ -48,9 +48,9 @@ jobs:
               echo "exists=false" >> $GITHUB_ENV
             fi
 
-      - name: Setup Terraform Backend (S3 + DynamoDB)
-        if: env.exists == 'false'
-        run: |
+    - name: Setup Terraform Backend (S3 + DynamoDB)
+      if: env.exists == 'false'
+      run: |
             
             #!/bin/bash
             
@@ -94,18 +94,18 @@ jobs:
             }
             EOF
       
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: latest
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: latest
 
-      - name: Terraform Init
-        run: terraform init
-        working-directory: terraform
+    - name: Terraform Init
+      run: terraform init
+      working-directory: terraform
 
-      - name: Terraform Plan
-        run: terraform plan
-        working-directory: terraform
+    - name: Terraform Plan
+      run: terraform plan
+      working-directory: terraform
     
     # - name: Terraform Apply
     #   run: terraform apply -auto-approve
