@@ -39,6 +39,30 @@ docker push nishantg98/simple-time-service:latest
 ```
 
 ### 4. Deploy to AWS ECS using Terraform
+
+#### Terraform Remote Backend Setup
+To ensure Terraform state is stored remotely and securely, we use:
+
+✅ S3 for centralized state storage
+✅ DynamoDB for state locking to prevent conflicts
+
+1️⃣ Terraform Backend Configuration
+Terraform is configured to use the following remote backend:
+
+```sh
+terraform {
+  backend "s3" {
+    bucket         = "simple-time-service-tf-state"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-locks"
+  }
+}
+```
+
+2️⃣ Deploy Terraform Infrastructure
+
 ```sh
 cd terraform
 terraform init
