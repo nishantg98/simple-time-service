@@ -1,51 +1,29 @@
 variable "aws_region" {
-  description = "AWS region for deployment"
+  description = "AWS Region"
   type        = string
   default     = "us-east-1"
-}
-
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "public_subnets" {
-  description = "Public subnets CIDR"
-  type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
-}
-
-variable "private_subnets" {
-  description = "Private subnets CIDR"
-  type        = list(string)
-  default     = ["10.0.3.0/24", "10.0.4.0/24"]
 }
 
 variable "ecs_cluster_name" {
   description = "ECS Cluster Name"
   type        = string
-  default     = "simple-time-service-cluster"
-}
-
-variable "container_image" {
-  description = "Docker image for the application"
-  type        = string
-  default     = "nishantgupta41/simple-time-service:v1"
+  default     = "ecs-cluster"
 }
 
 variable "container_port" {
-  description = "Container port to expose"
+  description = "Port on which the container runs"
   type        = number
   default     = 5000
 }
 
-variable "s3_bucket_name" {
-  description = "The name of the S3 bucket to store Terraform state"
+variable "dockerhub_username" {
+  description = "Docker Hub Username"
   type        = string
+  default     = "nishantg98"
 }
 
-variable "dynamodb_table_name" {
-  description = "The name of the DynamoDB table for state locking"
+variable "dockerhub_repo" {
+  description = "Docker Hub Repository Name"
   type        = string
+  default     = "simple-time-service"
 }
