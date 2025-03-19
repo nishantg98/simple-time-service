@@ -50,7 +50,7 @@ This workflow automates:
 ✅ Docker build & push
 ✅ Terraform apply
 
-### CI/CD Setup
+CI/CD Setup
 
 Store AWS & Docker credentials in GitHub Secrets:
 AWS_ACCESS_KEY_ID
