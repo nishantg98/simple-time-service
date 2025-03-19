@@ -20,7 +20,7 @@ jobs:
 
     - name: Build & Push Docker Image
       run: |
-        docker build -t nishantg98/simple-time-service app/Dockerfile app
+        docker build -t nishantg98/simple-time-service app/Dockerfile .
         docker tag nishantg98/simple-time-service nishantg98/simple-time-service:latest
         docker push nishantg98/simple-time-service:latest
 
