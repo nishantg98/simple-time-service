@@ -27,6 +27,7 @@ docker build -t simple-time-service .
 # Run the container
 docker run -p 5000:5000 simple-time-service
 ```
+The service should now be accessible at http://localhost:5000.
 
 ### 3. Push Docker Image to Docker Hub
 ```sh
@@ -44,11 +45,12 @@ terraform init
 terraform plan
 terraform apply -auto-approve
 ```
-### 5. CI/CD Pipeline (GitHub Actions)
-This workflow automates:
+This will create the required AWS infrastructure, including ECS Fargate, Load Balancer, and networking components.
 
-✅ Docker build & push
-✅ Terraform apply
+### 5. CI/CD Pipeline (GitHub Actions)
+✅ Automates:
+✔ Docker Build & Push
+✔ Terraform Apply
 
 CI/CD Setup
 
