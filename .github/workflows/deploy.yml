@@ -16,11 +16,11 @@ jobs:
 
     - name: Set up Docker
       run: |
-        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "nishantg98" --password-stdin
 
     - name: Build & Push Docker Image
       run: |
-        docker build -t nishantg98/simple-time-service .
+        docker build -t nishantg98/simple-time-service app/Dockerfile app
         docker tag nishantg98/simple-time-service nishantg98/simple-time-service:latest
         docker push nishantg98/simple-time-service:latest
 
