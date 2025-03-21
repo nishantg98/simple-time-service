@@ -81,7 +81,6 @@ CI/CD Setup
 Store AWS & Docker credentials in GitHub Secrets:
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
-DOCKER_USERNAME
 DOCKER_PASSWORD
 
 ### Trigger Deployment
